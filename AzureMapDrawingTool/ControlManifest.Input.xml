@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="CloudEvolv" constructor="AzureMapDrawingTool" version="0.0.1" display-name-key="AzureMapDrawingTool" description-key="AzureMapDrawingTool description" control-type="standard" >
+  <control namespace="CloudEvolv" constructor="AzureMapDrawingTool" version="0.0.1" display-name-key="AzureMapDrawingTool" description-key="A PowerApps PCF control that displays Azure Map allowing users access to drawing tools to create shapes, lines and, point objects." control-type="standard" >
+    
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -18,23 +19,62 @@
       -->
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
-    <property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type="SingleLine.Text" usage="bound" required="true" />
-    <!--
-      Property node's of-type attribute can be of-type-group attribute.
-      Example:
+    <property name="azureMapField" 
+              display-name-key="azureMapField" 
+              description-key="This field is the Primary Field used to display the map and store the GeoJSON for the shape layer." 
+              of-type="Multiple" 
+              usage="bound" 
+              required="true" />
+    
+    <property name="latitudeField" 
+              display-name-key="Latitude Field" 
+              description-key="Enter logical field name for the Latitude information. Information in this field is used to set the centerpoint of the map." 
+              of-type-group="numbers" 
+              usage="input" 
+              required="false" 
+              default-value="address1_latitude" />
+
+    <property name="longitudeField" 
+              display-name-key="Longitude Field" 
+              description-key="Enter logical field name for the Latitude information. Information in this field is used to set the centerpoint of the map." 
+              of-type-group="numbers" 
+              usage="input" 
+              required="false" 
+              default-value="address1_longitude" />
+              
       <type-group name="numbers">
         <type>Whole.None</type>
         <type>Currency</type>
         <type>FP</type>
         <type>Decimal</type>
       </type-group>
-      <property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type-group="numbers" usage="bound" required="true" />
+    <!--
+    <type-group name="allTypes">
+      <type>Decimal</type>
+      <type>TwoOptions</type>
+      <type>DateAndTime.DateOnly</type>
+      <type>DateAndTime.DateAndTime,</type>
+      <type>FP</type>
+      <type>Currency</type>
+      <type>OptionSet</type>
+      <type>SingleLine.Email</type>
+      <type>SingleLine.Text</type>
+      <type>SingleLine.TextArea</type>
+      <type>SingleLine.URL</type>
+      <type>SingleLine.Ticker</type>
+      <type>SingleLine.Phone</type>
+      <type>Multiple</type>
+      <type>FP</type>
+      <type>Whole.None</type>
+    </type-group>
     -->
     <resources>
       <code path="index.ts" order="1"/>
+      <css path="css/atlas.min.css" order="2" />
+      <css path="css/atlas-drawing.min.css" order="3" />
+      <css path="css/AzureMapDrawingTool.css" order="4" />
       <!-- UNCOMMENT TO ADD MORE RESOURCES
-      <css path="css/AzureMapDrawingTool.css" order="1" />
-      <resx path="strings/AzureMapDrawingTool.1033.resx" version="1.0.0" />
+      <resx path="strings/AzureMapDraw.1033.resx" version="1.0.0" />
       -->
     </resources>
     <!-- UNCOMMENT TO ENABLE THE SPECIFIED API
